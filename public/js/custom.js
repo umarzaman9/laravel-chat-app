@@ -23,5 +23,5 @@ Echo.join('user-status')
         $('#' + user.id + '-status').removeClass('onlineStatus').text('Offline');
     })
     .listen('UserStatusEvent', (e) => {
-        console.log(e);
+        //
     })

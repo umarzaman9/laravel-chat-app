@@ -21,6 +21,13 @@
                 </h3>
                 <div class="chatSection">
                     <div id="chatContainer">
+                        <div class="currentUser">
+                            <h5>Hello</h5>
+                        </div>
+                        <div class="distantUser">
+                            <h5>Hello back</h5>
+                        </div>
+
                     </div>
                     <form action="" id="chatForm">
                         <input class="border" type="text" name="message" placeholder="Enter message.." id="message"

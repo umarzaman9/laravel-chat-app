@@ -35,3 +35,20 @@
 .onlineStatus {
     color: green;
 }
+
+.currentUser {
+    text-align: right;
+    margin: 0.5rem;
+    font-size: 20px;
+}
+
+.distantUser {
+    text-align: left;
+    margin: 0.5rem;
+    font-size: 20px;
+}
+
+#message {
+    margin-top: 10px;
+    border: 2px solid black !important;
+}
