@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('user-status', function ($user) {
     return $user;
 });
+
+Broadcast::channel('broadcast-message', function ($user) {
+    return $user;
+});

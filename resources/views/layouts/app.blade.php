@@ -24,14 +24,8 @@
         window.jQuery = window.jQuery;
     </script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
-
-    <script>
-        var senderId = @json(auth()->user()->id);
-        var receiverId;
     </script>
 
 </head>
@@ -54,6 +48,13 @@
             {{ $slot }}
         </main>
     </div>
+
+    <script>
+        var senderId = @json(auth()->user()->id);
+        var receiverId;
+    </script>
+
+    <script src="{{ asset('js/custom.js') }}"></script>
 </body>
 
 </html>

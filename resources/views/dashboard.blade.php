@@ -6,7 +6,7 @@
             <div class="col-md-3">
                 <ul class="list-group">
                     @foreach ($users as $user )
-                    <li class="list-group-item cursor-pointer user-list">
+                    <li class="list-group-item cursor-pointer user-list" data-id="{{ $user->id }}">
                         <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="user-pic">
 
                         <span class="ms-2">{{ $user->name }}</span>
@@ -16,18 +16,11 @@
                 </ul>
             </div>
             <div class="col-md-9">
-                <h3 class="startHead text-white">
+                <h3 class="startHead">
                     click start chat!
                 </h3>
                 <div class="chatSection">
                     <div id="chatContainer">
-                        <div class="currentUser">
-                            <h5>Hello</h5>
-                        </div>
-                        <div class="distantUser">
-                            <h5>Hello back</h5>
-                        </div>
-
                     </div>
                     <form action="" id="chatForm">
                         <input class="border" type="text" name="message" placeholder="Enter message.." id="message"
