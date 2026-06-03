@@ -1,0 +1,37 @@
+.user-pic {
+    display: inline;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#chatContainer {
+    background-color: burlywood;
+    width: 97%;
+    height: 25rem;
+    overflow-y: scroll;
+}
+
+.border {
+    width: 85%;
+}
+
+.btn-primary {
+    width: auto;
+}
+
+.chatSection {
+    display: none;
+}
+
+.offlineStatus {
+    color: red;
+}
+
+.onlineStatus {
+    color: green;
+}

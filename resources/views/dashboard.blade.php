@@ -1,17 +1,39 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+    <div class="container mt-4">
+        <div class="row">
+            @if (count($users)>0)
+            <div class="col-md-3">
+                <ul class="list-group">
+                    @foreach ($users as $user )
+                    <li class="list-group-item cursor-pointer user-list">
+                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="user-pic">
+
+                        <span class="ms-2">{{ $user->name }}</span>
+                        <b><sup id="{{ $user->id }}-status" class="offlineStatus">Offline</sup></b>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <h3 class="startHead text-white">
+                    click start chat!
+                </h3>
+                <div class="chatSection">
+                    <div id="chatContainer">
+                    </div>
+                    <form action="" id="chatForm">
+                        <input class="border" type="text" name="message" placeholder="Enter message.." id="message"
+                            required>
+                        <input type="submit" value="Send Message" class="btn btn-primary">
+                    </form>
                 </div>
             </div>
+            @else
+            <div class="col-md-12">
+                <h4>Users not found</h4>
+            </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
