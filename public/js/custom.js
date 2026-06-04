@@ -15,6 +15,8 @@ $(document).ready(function () {
 
         $('.startHead').hide();
         $('.chatSection').show();
+
+        loadOldChats();
     });
 });
 
@@ -43,12 +45,48 @@ $('#chatForm').submit(function (e) {
                     </div>
                 `;
                 $('#chatContainer').append(html);
+                scrollChat();
             } else {
                 alert(response.message);
             }
         }
     });
 });
+
+//load chats
+function loadOldChats() {
+    $.ajax({
+        url: '/load-chats',
+        type: 'GET',
+        data: {
+            senderId: senderId,
+            receiverId: receiverId
+        },
+        success: function (response) {
+            if (response.success) {
+                let chats = response.data;
+                let html = '';
+                for (let i = 0; i < chats.length; i++) {
+                    let addClass = '';
+                    if (chats[i].senderId == senderId) {
+                        addClass = 'currentUser';
+                    } else {
+                        addClass = 'distantUser';
+                    }
+                    html += `
+                     <div class="`+ addClass + `">
+                        <h5>`+ chats[i] + `</h5>
+                    </div>
+                    `;
+                }
+                $('#chatContainer').append(html);
+                scrollChat();
+            } else {
+                alert(response.message);
+            }
+        }
+    });
+}
 
 Echo.join('user-status')
     .here((users) => {
@@ -71,6 +109,14 @@ Echo.join('user-status')
         //
     })
 
+//scroll div
+function scrollChat() {
+    $('#chatContainer').animate({
+        scrollTop: $('#chatContainer').offset().top + $('#chatContainer')[0].scrollHeight,
+
+    }, 0);
+}
+
 Echo.private('broadcast-message')
     .listen('.chatMessage', (data) => {
         console.log(data);
@@ -82,5 +128,6 @@ Echo.private('broadcast-message')
                 </div>
         `;
             $('#chatContainer').append(html);
+            scrollChat();
         }
     });

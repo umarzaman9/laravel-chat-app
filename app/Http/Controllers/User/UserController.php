@@ -41,4 +41,28 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function loadChats(Request $request)
+    {
+        try {
+            $chats = Chat::where(function ($q) use ($request) {
+                $q->where('senderId', '=', $request->senderId)
+                    ->orWhere('senderId', '=', $request->receiverId);
+            })->where(function ($q1) use ($request) {
+                $q1->where('receiverId', '=', $request->senderId)
+                    ->orWhere('receiverId', '=', $request->receiverId);
+            })->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $chats,
+            ]);
+        } catch (Exception $e) {
+            Log::error('saveChat error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 }
