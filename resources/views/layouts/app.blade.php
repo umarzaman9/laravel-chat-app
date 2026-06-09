@@ -18,7 +18,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="{{ asset('build/assets/app-DEd-CbRa.js') }}"></script>
+    <script src="{{ asset('build/assets/app-B79l-M1D.js') }}"></script>
     <script>
         window.$ = window.jQuery;
         window.jQuery = window.jQuery;

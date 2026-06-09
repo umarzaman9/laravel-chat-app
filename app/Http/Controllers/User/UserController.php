@@ -6,6 +6,7 @@ use App\Events\MessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use App\Models\User;
+use App\Notifications\ChatSent;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +29,11 @@ class UserController extends Controller
             ]);
 
             event(new MessageEvent($chat));
+
+            $receiver = User::find($request->receiverId);
+            if ($receiver) {
+                $receiver->notify(new ChatSent($chat));
+            }
 
             return response()->json([
                 'success' => true,
@@ -64,5 +70,47 @@ class UserController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    // ── 3 NEW METHODS BELOW ────────────────────────────────────────
+
+    // Returns unread notifications for whoever is logged in.
+    // unreadNotifications is a property the Notifiable trait adds to
+    // every User — it's just a scoped Eloquent relationship filtering
+    // rows in the notifications table where notifiable_id = auth user
+    // AND read_at IS NULL.
+    public function getNotifications(Request $request)
+    {
+        $notifications = auth()->user()->unreadNotifications;
+
+        return response()->json([
+            'success' => true,
+            'data'    => $notifications,
+            'count'   => $notifications->count(),
+        ]);
+    }
+
+    // Marks one notification read by setting read_at = now().
+    // The UUID id comes from the URL: /notifications/{id}/read
+    public function markNotificationRead(Request $request, $id)
+    {
+        $notification = auth()->user()
+            ->unreadNotifications
+            ->where('id', $id)
+            ->first();
+
+        if ($notification) {
+            $notification->markAsRead();   // built-in method, sets read_at
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    // Bulk-marks everything unread as read in one query.
+    public function markAllRead(Request $request)
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return response()->json(['success' => true]);
     }
 }

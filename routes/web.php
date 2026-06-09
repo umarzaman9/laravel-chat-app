@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/save-chat', [UserController::class, 'saveChat']);
     Route::get('/load-chats', [UserController::class, 'loadChats']);
+
+    Route::get('/notifications',                  [UserController::class, 'getNotifications']);
+    Route::post('/notifications/{id}/read',       [UserController::class, 'markNotificationRead']);
+    Route::post('/notifications/mark-all-read',   [UserController::class, 'markAllRead']);
 });
 
 require __DIR__ . '/auth.php';

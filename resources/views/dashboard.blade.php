@@ -1,5 +1,27 @@
 <x-app-layout>
 
+    {{-- ── NOTIFICATION BELL (add anywhere visible in the nav area) ── --}}
+    <div style="position:fixed; top:14px; right:20px; z-index:1000;">
+        <button id="notifBtn" class="btn btn-light btn-sm position-relative" onclick="toggleNotifPanel()">
+            🔔
+            <span id="notifBadge"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="display:none; font-size:10px;">
+                0
+            </span>
+        </button>
+
+        <div id="notifPanel" class="card shadow" style="display:none; position:absolute; right:0; top:40px;
+                    width:300px; max-height:380px; overflow-y:auto; z-index:999;">
+            <div class="card-header d-flex justify-content-between align-items-center py-2">
+                <strong>Notifications</strong>
+                <button class="btn btn-sm btn-outline-secondary" onclick="markAllRead()">Mark all read</button>
+            </div>
+            <ul id="notifList" class="list-group list-group-flush mb-0"></ul>
+        </div>
+    </div>
+    {{-- ──────────────────────────────────────────────────────────── --}}
+
     <div class="container mt-4">
         <div class="row">
             @if (count($users)>0)
